@@ -1,5 +1,6 @@
 package com.example.tasks
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-class TasksViewModel : ViewModel() {
+class TasksViewModel() : ViewModel() {
     private var auth: FirebaseAuth
 
     var user: User = User()
@@ -69,7 +70,7 @@ class TasksViewModel : ViewModel() {
                 for (taskSnapshot in dataSnapshot.children) {
                     // TODO: handle the post
                     var task = taskSnapshot.getValue<Task>()
-                    task?.taskId = taskSnapshot.key!!
+                    task?.taskId = taskSnapshot.key!!.toLong()
                     tasksList.add(task!!)
                 }
                 _tasks.value = tasksList
@@ -101,8 +102,8 @@ class TasksViewModel : ViewModel() {
     }
 
     fun onTaskClicked(selectedTask: Task) {
-        _navigateToTask.value = selectedTask.taskId
-        taskId = selectedTask.taskId
+        _navigateToTask.value = selectedTask.taskId.toString()
+        taskId = selectedTask.taskId.toString()
         task.value = selectedTask
     }
 

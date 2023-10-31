@@ -31,7 +31,7 @@ class TaskItemAdapter(val clickListener: (task: Task) -> Unit,
                  deleteClickListener: (taskId: String) -> Unit) {
             binding.task = item
             binding.root.setOnClickListener { clickListener(item) }
-            binding.deleteButton.setOnClickListener { deleteClickListener(item.taskId!!) }
+            binding.deleteButton.setOnClickListener { deleteClickListener(item.taskId!!.toString()) }
         }
     }
 }
